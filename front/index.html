@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Der Trainer </title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
     
     <style>
@@ -31,13 +31,13 @@
 <body>
     <div class="container" id='search'>
         <div class="row justify-content-md-center mt-5 ">
-            <div class="col-10">
+            <div class="col-lg-10 col-md-12">
                 <input class="form-control form-control-lg" type="text" placeholder="Query here" v-model="query" @keyup.enter='submit_query'>
             </div>
         </div>
         <div v-for="sent in sents">
             <div class='row justify-content-md-center mt-5 text'>
-                <div class='col-10'>
+                <div class='col-lg-10 col-md-12'>
                     <template v-for="(part, index) in sent.text">
                         <template v-if='part == "___"'>
                             <a href="javascript:void(0)" 
