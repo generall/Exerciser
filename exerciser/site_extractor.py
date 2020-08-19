@@ -1,0 +1,6 @@
+
+
+class Extractor:
+
+    @classmethod
+    def 
