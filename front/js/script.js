@@ -8,35 +8,24 @@ function findGetParameter(parameterName) {
         tmp = items[index].split("=");
         if (tmp[0] === parameterName) result = decodeURIComponent(tmp[1]);
     }
-    return result;
+    return result.split("+").join(" ");
+}
+
+
+function setURLParameter(url, parameter, value) {
+    let url1 = new URL(url);
+    if (url1.searchParams.get(parameter) === value) {
+        return url;
+    }
+    url1.searchParams.set(parameter, value);
+    console.log(url1.href);
+    return url1.href;
 }
 
 function insertParam(key, value) {
-    key = encodeURIComponent(key);
-    value = encodeURIComponent(value);
-
-    // kvp looks like ['key1=value1', 'key2=value2', ...]
-    var kvp = document.location.search.substr(1).split('&');
-    let i=0;
-
-    for(; i<kvp.length; i++){
-        if (kvp[i].startsWith(key + '=')) {
-            let pair = kvp[i].split('=');
-            pair[1] = value;
-            kvp[i] = pair.join('=');
-            break;
-        }
-    }
-
-    if(i >= kvp.length){
-        kvp[kvp.length] = [key,value].join('=');
-    }
-
-    // can return this or...
-    let params = kvp.join('&');
-
-    // reload page with new params
-    document.location.search = params;
+    var newUrl = setURLParameter(window.location, key, value);
+    console.log(newUrl);
+    window.history.replaceState( null, null, newUrl );
 }
 
 var vueExerciser = new Vue({
@@ -44,10 +33,11 @@ var vueExerciser = new Vue({
     data: {
         query: '',
         sents: [{
-            'text': ["Hello ", '___', ' and ', '___',  " world!"],
-            'words': ['a', 'b']
+            text: ["Hello ", '___', ' and ', '___',  " world!"],
+            words: ['a', 'b'],
         }],
-        all_words: ['a', 'b']
+        all_words: ['a', 'b'],
+        answers: ['', '']
     },
     methods: {
         load: function(){
@@ -58,9 +48,12 @@ var vueExerciser = new Vue({
             this.$http.get('/generate', {params:{
                 q: this.query.trim()
             }}).then(response => {
-                this.sents = response.body.sents
                 this.all_words = response.body.words
-            })
+                this.answers = Array(response.body.sents.length).join(".").split(".");
+                this.sents = response.body.sents
+            }).then(() => insertParam('q', this.query));
+            Array.from(document.getElementsByClassName('badge-success')).forEach((el) => el.classList.replace('badge-success', 'badge-secondary') );
+            Array.from(document.getElementsByClassName('badge-danger')).forEach((el) => el.classList.replace('badge-danger', 'badge-secondary'));
         },
         check: function(event, correct){
             event.target.classList.toggle('badge-secondary')
