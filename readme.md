@@ -15,7 +15,7 @@ Or with docker:
 ```
 docker build -t der-trainer .
 
-docker run -p 5000:5000 --rm -it der-trainer sh
+docker run -p 5000:5000 --rm -it der-trainer
 ```
 
 And open [http://localhost:5000/](http://localhost:5000/)
