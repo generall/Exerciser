@@ -50,12 +50,15 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-10 col-md-12">
+            <div class="col-lg-8 col-md-10">
                 <button type="button" class="btn btn-outline-success btn-sm mb-1" @click="query = 'Der Die Das'; submit_query()">Der Die Das</button>
                 <button type="button" class="btn btn-outline-primary btn-sm mb-1" @click="query = 'bin bist ist sein'; submit_query()">bin bist ist sein</button>
                 <button type="button" class="btn btn-outline-success btn-sm mb-1" @click="query = 'oder aber'; submit_query()">oder aber</button>
                 <button type="button" class="btn btn-outline-primary btn-sm mb-1" @click="query = 'zum zur nach'; submit_query()">zum zur nach</button>
                 <button type="button" class="btn btn-outline-success btn-sm mb-1" @click="query = 'auf aus'; submit_query()">auf aus</button>
+            </div>
+            <div class="col-2">
+                <button class="btn" onclick="TogetherJS(this); return false;">Collaborate</button>
             </div>
         </div>
         <div v-for="sent in sents">
@@ -88,6 +91,7 @@
     <script src="https://cdn.jsdelivr.net/npm/vue-resource@1.5.0"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vue-router/3.0.1/vue-router.js"></script>
     <script src="js/script.js"></script>
+    <script src="https://togetherjs.com/togetherjs-min.js"></script>
 </body>
 
 </html>
